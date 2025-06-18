@@ -1,6 +1,4 @@
 
-package Methods;
-
 import java.util.*;
 
 public class FootballTeamStats {
