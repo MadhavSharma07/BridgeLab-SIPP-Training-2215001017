@@ -23,7 +23,6 @@ public class Book {
 	}
 	
 	
-
 	public static void main(String[] args) {
 		System.out.println("Defult Constructor");
 		Book defultconstructor = new Book();
