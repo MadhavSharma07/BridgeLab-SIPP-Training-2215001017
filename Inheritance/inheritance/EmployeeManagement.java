@@ -1,6 +1,5 @@
 package inheritance;
 class EmployeeDetails{
-	
 	String name;
 	int id;
 	double salary;
@@ -9,13 +8,11 @@ class EmployeeDetails{
 		this.id = id;
 		this.salary = salary;
 	}
-	
 	 void displayDetails() {
 		System.out.println("The name of employee is :"+name);
 		System.out.println("The id of employee is:"+id);
 		System.out.println("The salary of employee is:"+salary);
-		
-		
+			
 	}
 	 
 }
@@ -32,10 +29,10 @@ class ManagerDetails extends EmployeeDetails{
 		System.out.println("The id of manager is:"+id);
 		System.out.println("The salary of manager is:"+salary);
 		System.out.println("The teamsize of manager is:"+teamSize);
-		
-		
+			
 	}
 }
+
 class Developer extends EmployeeDetails{
 	String programmingLanguage;
 	Developer(String name, int id, double salary,String programmingLanguage){
@@ -47,8 +44,7 @@ class Developer extends EmployeeDetails{
 			System.out.println("The id of developer is:"+id);
 			System.out.println("The salary of developer is:"+salary);
 			System.out.println("The programming language of developer is:"+programmingLanguage);
-			
-			
+				
 		}
 }
 
