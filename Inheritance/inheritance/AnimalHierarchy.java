@@ -10,6 +10,7 @@ class Animal{//parent class OR super class
 		this.age = age;
 	}
 }
+
 //Child classes OR subclasses
 class Dog extends Animal{
 	Dog(String name, int age){
@@ -19,6 +20,7 @@ class Dog extends Animal{
 		System.out.println("barks!");
 	}
 }
+
 
 class Cat extends Animal{
 	Cat(String name , int age){
