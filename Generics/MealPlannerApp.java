@@ -69,6 +69,10 @@ class Meal<T extends MealPlan> {
     }
 }
 
+
+
+
+
 class MealPlanGenerator {
     public static <T extends MealPlan> void generateMealPlan(T meal) {
         Meal<T> newMeal = new Meal<>(meal);
