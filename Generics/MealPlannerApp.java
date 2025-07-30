@@ -63,6 +63,8 @@ class Meal<T extends MealPlan> {
         System.out.println("Items:");
         for (String item : mealPlan.getItems()) {
             System.out.println("- " + item);
+
+            
         }
     }
 }
@@ -71,6 +73,8 @@ class MealPlanGenerator {
     public static <T extends MealPlan> void generateMealPlan(T meal) {
         Meal<T> newMeal = new Meal<>(meal);
         newMeal.displayMeal();
+
+
     }
 }
 
