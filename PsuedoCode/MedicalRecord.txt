@@ -1,0 +1,32 @@
+START
+
+INTERFACE Searchable
+    METHOD search(keyword)
+
+INTERFACE Printable
+    METHOD printReport()
+
+CLASS LabReport IMPLEMENTS Searchable, Printable
+    ATTRIBUTE reportDetails
+    METHOD search(keyword)
+        IF keyword in reportDetails
+            PRINT "Keyword found in LabReport"
+    METHOD printReport()
+        PRINT "Lab Report: " + reportDetails
+
+CLASS Prescription IMPLEMENTS Searchable, Printable
+    ATTRIBUTE prescriptionDetails
+    METHOD search(keyword)
+        IF keyword in prescriptionDetails
+            PRINT "Keyword found in Prescription"
+    METHOD printReport()
+        PRINT "Prescription: " + prescriptionDetails
+
+// MAIN
+CREATE lab = LabReport("Blood Test: Normal")
+CREATE pres = Prescription("Paracetamol 500mg")
+
+CALL lab.search("Blood")
+CALL pres.printReport()
+
+END
