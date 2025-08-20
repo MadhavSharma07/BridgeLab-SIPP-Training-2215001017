@@ -1,0 +1,25 @@
+START
+
+FUNCTION solveMaze(maze, x, y, solution)
+    IF (x, y) is destination
+        MARK solution[x][y] = 1
+        RETURN true
+    IF (x, y) is safe to visit
+        MARK solution[x][y] = 1
+        IF solveMaze(maze, x+1, y, solution) THEN RETURN true
+        IF solveMaze(maze, x, y+1, solution) THEN RETURN true
+        IF solveMaze(maze, x-1, y, solution) THEN RETURN true
+        IF solveMaze(maze, x, y-1, solution) THEN RETURN true
+        MARK solution[x][y] = 0 // backtrack
+        RETURN false
+    RETURN false
+
+// MAIN
+DEFINE maze as grid with 1 = open, 0 = blocked
+DEFINE solution matrix same size as maze
+IF solveMaze(maze, 0, 0, solution)
+    PRINT solution
+ELSE
+    PRINT "No path found"
+
+END
