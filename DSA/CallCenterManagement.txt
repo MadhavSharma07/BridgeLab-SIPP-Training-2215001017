@@ -1,0 +1,31 @@
+START
+
+CREATE EMERGENCY_QUEUE
+CREATE NORMAL_QUEUE
+
+FUNCTION addCustomer(name, type)
+    IF type = "emergency"
+        ENQUEUE name INTO EMERGENCY_QUEUE
+    ELSE
+        ENQUEUE name INTO NORMAL_QUEUE
+
+FUNCTION serveCustomer()
+    IF EMERGENCY_QUEUE is NOT empty
+        customer ← DEQUEUE from EMERGENCY_QUEUE
+        PRINT "Serving EMERGENCY: " + customer
+    ELSE IF NORMAL_QUEUE is NOT empty
+        customer ← DEQUEUE from NORMAL_QUEUE
+        PRINT "Serving NORMAL: " + customer
+    ELSE
+        PRINT "No customers"
+
+// MAIN
+addCustomer("Alice", "normal")
+addCustomer("Bob", "emergency")
+addCustomer("Charlie", "normal")
+addCustomer("David", "emergency")
+
+WHILE EMERGENCY_QUEUE or NORMAL_QUEUE not empty
+    serveCustomer()
+
+END
