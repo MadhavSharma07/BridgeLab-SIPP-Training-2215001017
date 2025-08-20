@@ -1,0 +1,28 @@
+START
+
+CREATE PRIORITY_QUEUE jobQueue // based on earliest deadline, then shortest processing time
+
+CLASS Job
+    ATTRIBUTE name
+    ATTRIBUTE deadline
+    ATTRIBUTE processingTime
+    CONSTRUCTOR Job(name, deadline, processingTime)
+        SET attributes
+
+FUNCTION addJob(name, deadline, processingTime)
+    CREATE newJob = Job(name, deadline, processingTime)
+    ENQUEUE newJob into jobQueue (sorted by deadline, then processingTime)
+
+FUNCTION processJobs()
+    WHILE jobQueue not empty
+        job = DEQUEUE from jobQueue
+        PRINT "Processing: " + job.name + " (Time: " + job.processingTime + ")"
+        WAIT job.processingTime seconds
+
+// MAIN
+addJob("Job1", 3, 5)
+addJob("Job2", 1, 2)
+addJob("Job3", 2, 4)
+processJobs()
+
+END
