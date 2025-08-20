@@ -1,0 +1,25 @@
+START
+
+CREATE ARRAY timeSlots[questions] // circular array
+SET currentIndex = 0
+
+FUNCTION setTimeSlots()
+    FOR each question i
+        timeSlots[i] = assigned time in seconds
+
+FUNCTION startQuiz()
+    WHILE questions remain
+        currentTime = timeSlots[currentIndex]
+        WHILE currentTime > 0
+            IF currentTime = 5
+                PRINT "Warning: 5 seconds left"
+            currentTime = currentTime - 1
+            WAIT 1 second
+        PRINT "Time up for Question " + (currentIndex + 1)
+        currentIndex = (currentIndex + 1) MOD questions
+
+// MAIN
+setTimeSlots()
+startQuiz()
+
+END
