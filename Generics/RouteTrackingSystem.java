@@ -1,6 +1,5 @@
-import java.util.*;
 
-abstract class Checkpoint { // Checkpoints
+abstract class Checkpoint {
     String id, name;
     double distance;
     int expected, actual;
@@ -20,11 +19,10 @@ abstract class Checkpoint { // Checkpoints
     abstract boolean isCritical();
 
     abstract String getType();
-
     abstract double penalty();
 
     public String toString() {
-        return getType() + " - " + name + "- " + (isDelayed() ? "Delayed" : "On Time")
+        return getType() + " - " + name + " - " + (isDelayed() ? "Delayed" : "On Time")
                 + " - Penalty: " + penalty();
     }
 }
@@ -84,67 +82,65 @@ class RestCheckpoint extends Checkpoint {
 }
 
 
-class RouteLinkedList {  //linkedlist of route
-    static class Node {
-        Checkpoint data;
-        Node next;
+class RouteLinkedList<T extends Checkpoint> { // linkedlist
+    static class Node<U> {
+        U data;
+        Node<U> next;
 
-        Node(Checkpoint c) {
-            data = c;
+        Node(U data) {
+            this.data = data;
         }
     }
 
-    Node head;
+    Node<T> head;
 
-    void add(Checkpoint c) {
+    void add(T c) {
         if (head == null)
-            head = new Node(c);
+            head = new Node<>(c);
         else {
-            Node t = head;
+            Node<T> t = head;
             while (t.next != null)
                 t = t.next;
-            t.next = new Node(c);
+            t.next = new Node<>(c);
         }
     }
 
     double totalDistance() {
         double sum = 0;
-        for (Node t = head; t != null; t = t.next)
+        for (Node<T> t = head; t != null; t = t.next)
             sum += t.data.distance;
         return sum;
     }
-
     double totalPenalty() {
         double sum = 0;
-        for (Node t = head; t != null; t = t.next)
+        for (Node<T> t = head; t != null; t = t.next)
             sum += t.data.penalty();
         return sum;
     }
-
     void printRoute() {
         int i = 1;
-        for (Node t = head; t != null; t = t.next, i++)
+        for (Node<T> t = head; t != null; t = t.next, i++)
             System.out.println(i + ". " + t.data);
     }
-
     boolean hasDelivery() {
-        for (Node t = head; t != null; t = t.next)
-            if (t.data instanceof DeliveryCheckpoint)
+        for (Node<T> t = head; t != null; t = t.next) {
+            if (t.data instanceof DeliveryCheckpoint) {
                 return true;
+            }
+        }
         return false;
     }
-
     boolean hasFuel() {
-        for (Node t = head; t != null; t = t.next)
+        for (Node<T> t = head; t != null; t = t.next)
             if (t.data instanceof FuelCheckpoint)
                 return true;
         return false;
     }
 }
 
-class Driver {    // driver
+class Driver { // driver
     String id, name;
-    RouteLinkedList route = new RouteLinkedList();
+    final RouteLinkedList<Checkpoint> route = new RouteLinkedList<>();
 
     Driver(String i, String n) {
         id = i;
@@ -159,8 +155,8 @@ class Driver {    // driver
         System.out.println("Total Distance: " + dist + " km");
         System.out.println("Total Penalty: " + pen);
         System.out.println("Route Score: " + (dist - pen));
-        System.out.println(
-                "Critical Route Check: " + (route.hasDelivery() && route.hasFuel() ? "All required checkpoints present"
+        System.out.println("Critical Route Check: "
+                + (route.hasDelivery() && route.hasFuel() ? "All required checkpoints present"
                         : "Missing critical checkpoints"));
     }
 }
@@ -168,7 +164,7 @@ class Driver {    // driver
 
 public class RouteTrackingSystem {
     public static void main(String[] args) {
-        Driver d = new Driver("D1204", "Kavita Nair");
+        Driver d = new Driver("D1007", "Madhav");
         d.route.add(new DeliveryCheckpoint("C1", "Warehouse A", 35, 30, 40)); // penalty 20
         d.route.add(new FuelCheckpoint("C2", "Pump 12", 25, 15, 15)); // penalty 0
         d.route.add(new RestCheckpoint("C3", "Motel X", 20, 60, 65)); // penalty 2.5
